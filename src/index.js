@@ -1,4 +1,4 @@
-class Person {
+class People {
   constructor(name, age) {
     this.name = name
     this.age = age
@@ -13,10 +13,22 @@ class Person {
   }
 }
 
-let zhang = new Person('zhang', 22)
-zhang.eat()
-zhang.speak()
+class Student extends People {
+  constructor(name, age, number){
+    super(name, age)
+    this.number = number
+  }
+  study() {
+    alert(`${this.name} study`)
+  }
+}
 
-let li = new Person('li', 25)
-li.eat()
-li.speak()
+let xiaoming = new Student('xiaoming', 10, 'A1')
+xiaoming.study()
+alert(xiaoming.number)
+xiaoming.eat()
+
+let xiaohong = new Student('xiaohong', 8, 'A2')
+xiaohong.study()
+alert(xiaohong.number)
+xiaohong.speak()
