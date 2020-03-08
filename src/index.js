@@ -1,42 +1,32 @@
 class People {
-  name
-  age
-  protected weight
-  constructor(name, age) {
+  constructor(name) {
     this.name = name
-    this.age = age
-    this.weight = 120
   }
+  saySomething() {
 
-  eat() {
-    alert(`${this.name} Eat Something!!!`)
-  }
-  
-  speak() {
-    alert(`My Name Is ${this.name}, age ${this.age}`)
   }
 }
 
-class Student extends People {
-  number
-  private girlfriend
-  constructor(name, age, number){
-    super(name, age)
-    this.number = number
-    this.girlfriend = 'xiaoli'
+class A extends People {
+  constructor(name) {
+    super(name)
   }
-  study() {
-    alert(`${this.name} study`)
-  }
-  getWeight() {
-    alert('weight ${this.weight}')
+  saySomething() {
+    alert('I am A')
   }
 }
 
-let xiaoming = new Student('xiaoming', 10, 'A1')
-xiaoming.getWeight()
+class B extends People {
+  constructor(name) {
+    super(name)
+  }
+  saySomething() {
+    alert('I am B')
+  }
+}
 
-let xiaohong = new Student('xiaohong', 8, 'A2')
-xiaohong.study()
-alert(xiaohong.number)
-xiaohong.speak()
+let a = new A('a')
+a.saySomething()
+
+let b = new B('b')
+b.saySomething()
