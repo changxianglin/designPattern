@@ -1,32 +1,32 @@
-class People {
-  constructor(name) {
-    this.name = name
+class jQuery {
+  constructor(selector) {
+    let slice = Array.prototype.slice
+    let dom = slice.call(document.querySelectorAll(selector))
+    let len = dom ? dom.length : 0
+    for( let i = 0; i < len; i++) {
+      this[i] = dom[i]
+    }
+    this.length = len
+    this.selector = selector || ''
   }
-  saySomething() {
+  append(node) {
+
+  }
+  addClass(name) {
+
+  }
+  html(data) {
 
   }
 }
 
-class A extends People {
-  constructor(name) {
-    super(name)
-  }
-  saySomething() {
-    alert('I am A')
-  }
+window.$ = function(selector) {
+  // 工厂模式
+  return new jQuery(selector)
 }
 
-class B extends People {
-  constructor(name) {
-    super(name)
-  }
-  saySomething() {
-    alert('I am B')
-  }
-}
 
-let a = new A('a')
-a.saySomething()
-
-let b = new B('b')
-b.saySomething()
+// test
+var $p = $('p')
+console.log($p)
+console.log($p.addClass)
