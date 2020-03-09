@@ -1,27 +1,37 @@
-function loadImg(src) {
-  let promise = new Promise(function(resolve, reject) {
-    let img = document.createElement('img')
-    img.onload = function() {
-      resolve(img)
-    }
-    img.onerror = function() {
-      reject('图片加载失败')
-    }
-    img.src = src
-  })
-  return promise
+class Car {
+  constructor(number, name) {
+    this.number = number
+    this.name = name
+  }
 }
 
-let src = 'http://i2.hdslb.com/bfs/face/1babc0f9dbd0034d40cbe12d2f3a34f18a947773.png'
-let result = loadImg(src)
-result.then(function(img) {
-  alert(`width: ${img.width}`)
-  return img
-}).then(function(img) {
-  alert(`height: ${img.height}`)
-  return img
-}).then(function(img) {
-  alert(img.src)
-}).catch(function(er) {
-  alert(er)
-})
+class Kuaiche extends Car {
+  constructor(number, name) {
+    super(number, name)
+    this.price = 1
+  }
+}
+
+class Zhuanche extends Car {
+  constructor(number, name) {
+    super(number, name)
+    this.price = 2
+  }
+}
+
+class Trip {
+  constructor(car) {
+    this.car = car
+  }
+  start() {
+    console.log(`行程开始, 车辆名称： ${this.car.name}, 车牌号: ${this.car.number}`)
+  }
+  end() {
+    console.log(`行程结束, 金额： ${this.car.price * 5}`)
+  }
+}
+
+let car = new Kuaiche(100, '大众')
+let trip = new Trip(car)
+trip.start()
+trip.end()
