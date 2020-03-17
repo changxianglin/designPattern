@@ -15,6 +15,12 @@ class Product {
 
 class Creator {
   create(name) {
-    return new Product()
+    return new Product(name)
   }
 }
+
+// test
+let creator = new Creator()
+let p = creator.create('p1')
+p.init()
+p.fun1()
