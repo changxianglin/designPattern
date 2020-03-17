@@ -1,27 +1,42 @@
-class SingleObject {
-  login() {
-    console.log('login...')
+class LoginForm {
+  constructor() {
+    this.state = 'hide'
+  }
+  show() {
+    if(this.state === 'show') {
+      alert('already show')
+      return
+    } else {
+    this.state = 'show'
+    console.log('loginForm show success')
+    }
+  }
+  hide() {
+    if(this.state === 'hide') {
+      alert('already hide')
+      return 
+    } 
+      this.state = 'hide'
+      console.log('loginForm hide success')
   }
 }
 
-SingleObject.getInstance = (function() {
-  let instance 
+LoginForm.getInstance = (function () {
+  let instance
   return function() {
     if(!instance) {
-      instance = new SingleObject()
-    }
+      instance = new LoginForm()
+    } 
     return instance
   }
 })()
 
-let obj1 = SingleObject.getInstance()
-obj1.login()
-let obj2 = SingleObject.getInstance()
+// test
 
-console.log('obj1 === obj2', obj1 === obj2)
+let login1 = LoginForm.getInstance()
+login1.show()
 
-console.log('------split-------')
+let login2 = LoginForm.getInstance()
+login2.hide()
 
-let obj3 = new SingleObject() // uncontroll
-obj3.login()
-console.log('obj1 === obj2', obj1 === obj3) // error case
+console.log('login1 === login2', login1 === login2)
