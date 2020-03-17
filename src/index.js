@@ -1,28 +1,10 @@
-class Circle {
-  draw() {
-    console.log('Draw a circle')
-  }
+@testDec
+class Demo {
+
 }
 
-class Decorator {
-  constructor(circle) {
-    this.circle = circle
-  }
-  draw() {
-    this.circle.draw()
-    this.setRedBorder(circle)
-  }
-  setRedBorder(circle) {
-    console.log('setting red border')
-  }
+function testDec(target) {
+  target.isDec = true
 }
 
-
-// test 
-let circle = new Circle()
-circle.draw()
-
-console.log('-------split line-----------')
-
-let dec = new Decorator(circle)
-dec.draw()
+alert(Demo.isDec)
