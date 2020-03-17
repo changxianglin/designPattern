@@ -1,20 +1,28 @@
-class Adaptee {
-  specificRequest() {
-    return 'Germany State'
+class Circle {
+  draw() {
+    console.log('Draw a circle')
   }
 }
 
-class Target {
-  constructor() {
-    this.adaptee = new Adaptee()
+class Decorator {
+  constructor(circle) {
+    this.circle = circle
   }
-  request() {
-    let info = this.adaptee.specificRequest()
-    return `${info} - transform - china State`
+  draw() {
+    this.circle.draw()
+    this.setRedBorder(circle)
+  }
+  setRedBorder(circle) {
+    console.log('setting red border')
   }
 }
+
 
 // test 
-let target = new Target()
-let res = target.request()
-console.log(res)
+let circle = new Circle()
+circle.draw()
+
+console.log('-------split line-----------')
+
+let dec = new Decorator(circle)
+dec.draw()
