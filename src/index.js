@@ -1,10 +1,12 @@
-@testDec
-class Demo {
-
+function testDec(isDec) {
+  return function (target) {
+    target.isDec = isDec
+  }
 }
 
-function testDec(target) {
-  target.isDec = true
+@testDec(false)
+class Demo {
+
 }
 
 alert(Demo.isDec)
