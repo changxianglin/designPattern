@@ -1,12 +1,19 @@
-function testDec(isDec) {
+function minxins(...list) {
   return function (target) {
-    target.isDec = isDec
+    Object.assign(target.prototype, ...list)
   }
 }
 
-@testDec(false)
-class Demo {
+const Foo = {
+  foo() {
+    alert('foo')
+  }
+}
+
+@minxins(Foo)
+class Myclass {
 
 }
 
-alert(Demo.isDec)
+const obj = new Myclass()
+obj.foo()
