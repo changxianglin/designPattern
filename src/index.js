@@ -1,19 +1,24 @@
-function minxins(...list) {
-  return function (target) {
-    Object.assign(target.prototype, ...list)
+function readonly(target, name, descriptor) {
+  descriptor.writable = false
+  return descriptor
+}
+
+
+class Person {
+  constructor() {
+    this.first = 'A'
+    this.last = 'B'
+  }
+
+  @readonly
+  name() {
+    return `${this.first} ${this.last}`
   }
 }
 
-const Foo = {
-  foo() {
-    alert('foo')
-  }
-}
+const p = new Person()
+console.log(p.name())
 
-@minxins(Foo)
-class Myclass {
-
-}
-
-const obj = new Myclass()
-obj.foo()
+// p.name = function() {
+//   alert(100)
+// }
