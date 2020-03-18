@@ -1,41 +1,43 @@
-// star
-const star = {
-  name: '张xxx',
-  age: 25,
-  phone: '13800001111'
+// theme, save state, state change tell all observe
+class Subject {
+  constructor() {
+    this.state = 0
+    this.observers = []
+  }
+  getState() {
+    return this.state
+  }
+  setState(state) {
+    this.state = state
+    this.notifyAllObservers()
+  }
+  notifyAllObservers() {
+    this.observers.forEach(observer => {
+      observer.update()
+    })
+  }
+  attach(observer) {
+    this.observers.push(observer)
+  }
 }
 
-// broker
-let agent = new Proxy(star, {
-  get: function(target, key) {
-    if(key === 'phone') {
-      // broker phone
-      return 'broker: 17889989988'
-    }
-    if(key === 'price') {
-      // broker speak price
-      return 120000
-    }
-    return target[key]
-  },
-  set: function(target, key, val) {
-    if(key === 'customPrice') {
-      if(val < 100000) {
-        // lower 10w
-        throw new Error('to lower price')
-      } else {
-        target[key] = val
-        return true
-      }
-    }
+class Observer {
+  constructor(name, subject) {
+    this.name = name
+    this.subject = subject
+    this.subject.attach(this)
   }
-})
+  update() {
+    console.log(`${this.name} update, state: ${this.subject.getState()}`)
+  }
+}
 
-// test
-console.log(agent.name)
-console.log(agent.age)
-console.log(agent.phone)
-console.log(agent.price)
+// test 
+const s = new Subject()
+const o1 = new Observer('o1', s)
+const o2 = new Observer('o2', s)
+const o3 = new Observer('o3', s)
 
-agent.customPrice = 9000
-console.log(agent.customPrice)
+s.setState(1)
+s.setState(2)
+s.setState(3)
