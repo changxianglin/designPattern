@@ -1,15 +1,11 @@
-import { readonly } from 'core-decorators'
+import { deprecate } from 'core-decorators'
 
 class Person {
-  @readonly
+  @deprecate('at right now no support', {url: 'www.zhourong.host'})
   name() {
     return 'zhang san'
   }
 }
 
 const p = new Person()
-alert(p.name())
-
-p.name = function() {
-  console.log('li si')
-}
+p.name()
