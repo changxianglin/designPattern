@@ -1,19 +1,15 @@
-function log(target, name, descriptor) {
-  let oldValue = descriptor.value
-  descriptor.value = function() {
-    console.log(`call ${name} width`, arguments)
-    return oldValue.apply(this, arguments)
-  }
-  return descriptor
-}
+import { readonly } from 'core-decorators'
 
-class Math {
-  @log
-  add(a, b) {
-    return a + b
+class Person {
+  @readonly
+  name() {
+    return 'zhang san'
   }
 }
 
-const math = new Math()
-const result = math.add(2, 4)
-console.log('result', result)
+const p = new Person()
+alert(p.name())
+
+p.name = function() {
+  console.log('li si')
+}
