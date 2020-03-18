@@ -1,11 +1,27 @@
-import { deprecate } from 'core-decorators'
+class ReadImg {
+  constructor(fileName) {
+    this.fileName = fileName
+    this.loadFromDisk() // init load file from hard disk, simulation
+  }
 
-class Person {
-  @deprecate('at right now no support', {url: 'www.zhourong.host'})
-  name() {
-    return 'zhang san'
+  display() {
+    console.log('display...' + this.fileName)
+  }
+
+  loadFromDisk() {
+    console.log('loading...' + this.fileName)
   }
 }
 
-const p = new Person()
-p.name()
+class ProxyImg {
+  constructor(fileName) {
+    this.readImg = new ReadImg(fileName)
+  }
+  display() {
+    this.readImg.display()
+  }
+}
+
+// test
+const proxyImg = new ProxyImg('1.png')
+proxyImg.display()
