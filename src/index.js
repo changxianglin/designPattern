@@ -1,14 +1,16 @@
-// stream customize events
 const fs = require('fs')
-const readStream = fs.createReadStream('../release/bundle.js')
+const readline = require('readline')
 
-let length = 0
-readStream.on('data', function(chunk) {
-    let len = chunk.toString().length
-    console.log('len', len)
-    length += len
+const rl = readline.createInterface({
+  input: fs.createReadStream('../release/bundle.js')
 })
 
-readStream.on('end', function() {
-  console.log('length', length)
+let lineNum = 0
+rl.on('line', function(line) {
+  console.log(lineNum)
+  lineNum++
+})
+
+rl.on('close', function() {
+  console.log('lineNum', lineNum)
 })
