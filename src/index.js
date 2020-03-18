@@ -1,22 +1,14 @@
-const EventEmitter = require('events').EventEmitter
+// stream customize events
+const fs = require('fs')
+const readStream = fs.createReadStream('../release/bundle.js')
 
-// extends
-class Dog extends EventEmitter {
-  constructor(name) {
-    super()
-    this.name = name
-  }
-}
-
-let simon = new Dog('simon')
-simon.on('bark', function () {
-  console.log(this.name, 'barked1')
+let length = 0
+readStream.on('data', function(chunk) {
+    let len = chunk.toString().length
+    console.log('len', len)
+    length += len
 })
 
-simon.on('bark', function () {
-  console.log(this.name, 'barked2')
+readStream.on('end', function() {
+  console.log('length', length)
 })
-
-setInterval(function () {
-  simon.emit('bark')
-}, 1000)
