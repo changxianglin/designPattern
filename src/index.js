@@ -1,15 +1,22 @@
 const EventEmitter = require('events').EventEmitter
 
-const emitter1 = new EventEmitter
-// oberver some
-emitter1.on('some', info => {
-  console.log('fn1', info)
+// extends
+class Dog extends EventEmitter {
+  constructor(name) {
+    super()
+    this.name = name
+  }
+}
+
+let simon = new Dog('simon')
+simon.on('bark', function () {
+  console.log(this.name, 'barked1')
 })
 
-// oberver some
-emitter1.on('some', info => {
-  console.log('fn2', info)
+simon.on('bark', function () {
+  console.log(this.name, 'barked2')
 })
 
-// emitter some 
-emitter1.emit('some', 'xxxxxx')
+setInterval(function () {
+  simon.emit('bark')
+}, 1000)
