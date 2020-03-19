@@ -36,18 +36,48 @@
     //   fn = $.proxy(fn, this)
     //   setTimeout(fn, 1000)
     // })
-    var callbacks = $.Callbacks()
-    callbacks.add(function(info) {
-      console.log('fn1', info)
-    })
-    callbacks.add(function(info) {
-      console.log('fn2', info)
-    })
-    callbacks.add(function(info) {
-      console.log('fn3', info)
-    })
-    callbacks.fire('gogogo')
-    callbacks.fire('fire')
+    // var callbacks = $.Callbacks()
+    // callbacks.add(function(info) {
+    //   console.log('fn1', info)
+    // })
+    // callbacks.add(function(info) {
+    //   console.log('fn2', info)
+    // })
+    // callbacks.add(function(info) {
+    //   console.log('fn3', info)
+    // })
+    // callbacks.fire('gogogo')
+    // callbacks.fire('fire')
+    var arr = [1, 2, 3]
+    var nodeList = document.getElementsByTagName('a')
+    var $a = $('a')
+
+    function each(data) {
+      var $data = $(data)
+      $data.each(function(key, val) {
+        console.log(key, val)
+      })
+    }
+
+    each(arr)
+    each(nodeList)
+    each($a)
+
+    // // arr 
+    // arr.forEach(function(item) {
+    //   console.log(item)
+    // })
+
+    // // nodelist
+    // var i, lenght = nodeList.length
+    // for(i = 0; i < lenght; i++) {
+    //   console.log(nodeList[i])
+    // }
+
+    // // jqeury 
+    // $a.each(function(key, elem) {
+    //   console.log(key, elem)
+    // })
   </script>
 </body>
 </html>
