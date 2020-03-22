@@ -4,7 +4,7 @@ class State {
   }
 
   handle(context) {
-    console.log(`turn on ${this.color}` light)
+    console.log(`turn on ${this.color} light`)
     context.setState(this)
   }
 }
@@ -18,7 +18,7 @@ class Context {
     return this.state
   }
 
-  setState(sate) {
+  setState(state) {
     this.state = state
   }
 }
