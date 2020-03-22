@@ -1,41 +1,43 @@
-class Iterator {
-  constructor(container) {
-    this.list = container.list
-    this.index = 0
+class State {
+  constructor(color) {
+    this.color = color
   }
-  next() {
-    if(this.hasNext()) {
-      return this.list[this.index++]
-    } else {
-      return null 
-    }
-  }
-  hasNext() {
-    if(this.index >= this.list.length) {
-      return false
-    } else {
-      return true
-    }
+
+  handle(context) {
+    console.log(`turn on ${this.color}` light)
+    context.setState(this)
   }
 }
 
+class Context {
+  constructor() {
+    this.state = null
+  } 
 
-class Container {
-  constructor(list) {
-    this.list = list
+  getState() {
+    return this.state
   }
 
-  // iterator
-  getIterator() {
-    return new Iterator(this)
+  setState(sate) {
+    this.state = state
   }
-  
 }
 
-// test
-var arr = [1, 2, 3, 4, 5, 6]
-const container = new Container(arr)
-let iterator = container.getIterator()
-while(iterator.hasNext()) {
-  console.log(iterator.next())
-}
+// test 
+let context = new Context()
+
+let green = new State('green')
+let yellow = new State('yellow')
+let red = new State('red')
+
+// green
+green.handle(context)
+console.log(context.getState())
+
+// yellow
+yellow.handle(context)
+console.log(context.getState())
+
+// red
+red.handle(context)
+console.log(context.getState())
