@@ -18,7 +18,7 @@ let fsm = new StateMachine({
   ],
   methods: {
     //  linsten run collection
-    onDostore: function() {
+    onDoStore: function() {
       alert('collection success') // send post
       updateText()
     },
