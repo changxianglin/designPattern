@@ -1,51 +1,78 @@
 import StateMachine from 'javascript-state-machine'
-import $ from 'jquery'
 
-// init 
-let fsm = new StateMachine({
-  init: 'collection',
+const fsm = new StateMachine({
+  init: 'pending',
   transitions: [
     {
-      name: 'doStore',
-      from: 'collection',
-      to: 'cancelCollection'
+      name: 'resolve', // event name
+      from: 'pengding',
+      to: 'fullfiled'
     },
     {
-      name: 'deleteStore',
-      from: 'cancelCollection',
-      to: 'collection'
+      name: 'reject',
+      from: 'pending',
+      to: 'rejected'
     }
   ],
   methods: {
-    //  linsten run collection
-    onDoStore: function() {
-      alert('collection success') // send post
-      updateText()
+    // listen resolve
+    onResolve: function(state, data) {
+      // state
+      data.succesList.forEach(fn => fn())
     },
-
-    // listen run cacel collection
-    onDeleteStore: function() {
-      alert('aleay cancel collection')
-      updateText()
+    // listen reject
+    onReject: function(state, data) {
+      data.succesList.forEach(fn => fn())
     }
   }
 })
 
-const $btn = $('#btn1')
+// definition promise
+class myPromise {
+  constructor(fn) {
+    this.succesList = []
+    this.failList = []
 
-// click event
-$btn.click(function() {
-  if(fsm.is('collection')) {
-    fsm.doStore()
-  } else {
-    fsm.deleteStore()
+    fn(function() {
+      // resolve
+      fsm.resolve(this)
+    }, function() {
+      // reject
+      fsm.reject(this)
+    })
   }
-})
-
-// update button text
-function updateText() {
-  $btn.text(fsm.state)
+  then(succesFn, failFn) {
+    this.succesList.push(succesFn)
+    this.failList.push(failFn)
+  }
 }
 
-// init text
-updateText()
+// test
+function loadImg(src) {
+  const promise = new Promise(function(resolve, reject) {
+    let img = document.createElement('img')
+    img.onload = function() {
+      resolve(img)
+    }
+    img.onerror = function() {
+      reject()
+    }
+    img.src = src
+  })
+  return promise
+}
+
+let src = 'https://img4.mukewang.com/570cfbfa0001ec3b06400640-100-100.jpg'
+let result = loadImg(src)
+
+result.then(function() {
+  console.log('ok1')
+}, function() {
+  console.log('fail1')
+})
+
+result.then(function() {
+  console.log('ok2')
+}, function() {
+  console.log('fail2')
+})
