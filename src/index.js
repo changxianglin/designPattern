@@ -1,43 +1,51 @@
-class State {
-  constructor(color) {
-    this.color = color
-  }
+import StateMachine from 'javascript-state-machine'
+import $ from 'jquery'
 
-  handle(context) {
-    console.log(`turn on ${this.color} light`)
-    context.setState(this)
+// init 
+let fsm = new StateMachine({
+  init: 'collection',
+  transitions: [
+    {
+      name: 'doStore',
+      from: 'collection',
+      to: 'cancelCollection'
+    },
+    {
+      name: 'deleteStore',
+      from: 'cancelCollection',
+      to: 'collection'
+    }
+  ],
+  methods: {
+    //  linsten run collection
+    onDostore: function() {
+      alert('collection success') // send post
+      updateText()
+    },
+
+    // listen run cacel collection
+    onDeleteStore: function() {
+      alert('aleay cancel collection')
+      updateText()
+    }
   }
+})
+
+const $btn = $('#btn1')
+
+// click event
+$btn.click(function() {
+  if(fsm.is('collection')) {
+    fsm.doStore()
+  } else {
+    fsm.deleteStore()
+  }
+})
+
+// update button text
+function updateText() {
+  $btn.text(fsm.state)
 }
 
-class Context {
-  constructor() {
-    this.state = null
-  } 
-
-  getState() {
-    return this.state
-  }
-
-  setState(state) {
-    this.state = state
-  }
-}
-
-// test 
-let context = new Context()
-
-let green = new State('green')
-let yellow = new State('yellow')
-let red = new State('red')
-
-// green
-green.handle(context)
-console.log(context.getState())
-
-// yellow
-yellow.handle(context)
-console.log(context.getState())
-
-// red
-red.handle(context)
-console.log(context.getState())
+// init text
+updateText()
