@@ -1,23 +1,49 @@
-// a prototype object
-const prototype = {
-  getName: function() {
-    return this.first + ' ' + this.last
-  },
-  say: function() {
-    alert('hello')
+// class User {
+//   constructor(type) {
+//     this.type = type
+//   }
+//   buy() {
+//     if(this.type === 'ordinary') {
+//       console.log('general user buy')
+//     } else if(this.type === 'member') {
+//       console.log('member user buy')
+//     } else if(this.type === 'vip') {
+//       console.log('vip user buy')
+//     }
+//   }
+// }
+
+// // test 
+// let u1 = new User('ordinary')
+// u1.buy()
+// let u2 = new User('member')
+// u2.buy()
+// let u3 = new User('vip')
+// u3.buy()
+
+
+class OrdinaryUser {
+  buy() {
+    console.log('genral user buy')
   }
 }
 
-// base prototype create x
-let x = Object.create(prototype)
-x.first = 'A'
-x.last = 'B'
-alert(x.getName())
-x.say()
+class MemberUser {
+  buy() {
+    console.log('member user buy')
+  }
+}
 
-// base prototype create y
-let y = Object.create(prototype)
-y.first = 'C'
-y.last = 'D'
-alert(y.getName())
-y.say()
+class vipUser {
+  buy() {
+    console.log('vip user buy')
+  }
+}
+
+// test
+let u1 = new OrdinaryUser()
+u1.buy()
+let u2 = new MemberUser()
+u2.buy()
+let u3 = new vipUser()
+u3.buy()
