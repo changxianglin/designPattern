@@ -1,49 +1,25 @@
-// class User {
-//   constructor(type) {
-//     this.type = type
-//   }
-//   buy() {
-//     if(this.type === 'ordinary') {
-//       console.log('general user buy')
-//     } else if(this.type === 'member') {
-//       console.log('member user buy')
-//     } else if(this.type === 'vip') {
-//       console.log('vip user buy')
-//     }
-//   }
-// }
-
-// // test 
-// let u1 = new User('ordinary')
-// u1.buy()
-// let u2 = new User('member')
-// u2.buy()
-// let u3 = new User('vip')
-// u3.buy()
-
-
-class OrdinaryUser {
-  buy() {
-    console.log('genral user buy')
+class Action {
+  constructor(name) {
+    this.name = name
+    this.nextAction = null
   }
-}
 
-class MemberUser {
-  buy() {
-    console.log('member user buy')
+  setNextAction(action) {
+    this.nextAction = action
   }
-}
 
-class vipUser {
-  buy() {
-    console.log('vip user buy')
+  handle() {
+    console.log(`${this.name} 审批`)
+    if(this.nextAction != null) {
+      this.nextAction.handle()
+    }
   }
 }
 
 // test
-let u1 = new OrdinaryUser()
-u1.buy()
-let u2 = new MemberUser()
-u2.buy()
-let u3 = new vipUser()
-u3.buy()
+let a1 = new Action('组长')
+let a2 = new Action('经理')
+let a3 = new Action('总监')
+a1.setNextAction(a2)
+a2.setNextAction(a3)
+a1.handle()
