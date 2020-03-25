@@ -1,25 +1,58 @@
-class Action {
-  constructor(name) {
-    this.name = name
-    this.nextAction = null
+// remember
+class Memento {
+  constructor(content) {
+    this.content = content
   }
-
-  setNextAction(action) {
-    this.nextAction = action
+  getContent() {
+    return this.content
   }
+}
 
-  handle() {
-    console.log(`${this.name} 审批`)
-    if(this.nextAction != null) {
-      this.nextAction.handle()
-    }
+// list 
+class CreateTaker {
+  constructor() {
+    this.list = []
+  }
+  add(memento) {
+    this.list.push(memento)
+  }
+  get(index) {
+    return this.list[index]
+  }
+}
+
+// editor
+class Editor {
+  constructor() {
+    this.content = null
+  }
+  setContent(content) {
+    this.content = content
+  }
+  getContent() {
+    return this.content
+  }
+  saveContentToMemento(memento) {
+    return new Memento(memento)
+  }
+  getContentFromMemento(memento) {
+    this.content = memento.getContent()
   }
 }
 
 // test
-let a1 = new Action('组长')
-let a2 = new Action('经理')
-let a3 = new Action('总监')
-a1.setNextAction(a2)
-a2.setNextAction(a3)
-a1.handle()
+let editor = new Editor()
+let createTaker = new CreateTaker()
+
+editor.setContent('111')
+editor.setContent('222')
+createTaker.add(editor.saveContentToMemento()) // cache 
+editor.setContent('333')
+createTaker.add(editor.saveContentToMemento()) // cache
+editor.setContent('444')
+
+console.log(editor.getContent())
+editor.getContentFromMemento(createTaker.get(1))
+console.log(editor.getContent())
+editor.getContentFromMemento(createTaker.get(0))
+console.log(editor.getContent())
