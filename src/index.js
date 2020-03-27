@@ -1,58 +1,48 @@
-// remember
-class Memento {
-  constructor(content) {
-    this.content = content
+class A {
+  constructor() {
+    this.number = 0
   }
-  getContent() {
-    return this.content
+  setNumber(num, m) {
+    this.number = num
+    if(m) {
+      m.setB()
+    }
   }
 }
 
-// list 
-class CreateTaker {
+class B {
   constructor() {
-    this.list = []
+    this.number = 0
   }
-  add(memento) {
-    this.list.push(memento)
-  }
-  get(index) {
-    return this.list[index]
+  setNumber(num, m) {
+    this.number = num
+    if(m) {
+      m.setA()
+    }
   }
 }
 
-// editor
-class Editor {
-  constructor() {
-    this.content = null
+// Mediator
+class Mediator {
+  constructor(a, b) {
+    this.a = a
+    this.b = b
   }
-  setContent(content) {
-    this.content = content
+  setB() {
+    let number = this.a.number
+    this.b.setNumber(number * 1000)
   }
-  getContent() {
-    return this.content
-  }
-  saveContentToMemento(memento) {
-    return new Memento(memento)
-  }
-  getContentFromMemento(memento) {
-    this.content = memento.getContent()
+  setA() {
+    let number = this.b.number
+    this.a.setNumber(number / 1000)
   }
 }
 
 // test
-let editor = new Editor()
-let createTaker = new CreateTaker()
-
-editor.setContent('111')
-editor.setContent('222')
-createTaker.add(editor.saveContentToMemento()) // cache 
-editor.setContent('333')
-createTaker.add(editor.saveContentToMemento()) // cache
-editor.setContent('444')
-
-console.log(editor.getContent())
-editor.getContentFromMemento(createTaker.get(1))
-console.log(editor.getContent())
-editor.getContentFromMemento(createTaker.get(0))
-console.log(editor.getContent())
+let a = new A()
+let b = new B()
+let m = new Mediator(a, b)
+a.setNumber(100, m)
+console.log(a.number, b.number)
+b.setNumber(100, m)
+console.log(a.number, b.number)
