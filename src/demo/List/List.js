@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import { GET_LIST } from '../config/config'
+import createItem from './CreateItem'
 
 export default class List {
   constructor(app) {
@@ -15,7 +16,9 @@ export default class List {
 
   initItemList(data) {
     data.map(itemData => {
-
+      let item = createItem(this, itemData)
+      item.init()
+      return item
     })
   }
 

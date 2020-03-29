@@ -2,16 +2,25 @@
   {
     "id": 1,
     "name": "zhangsan",
-    "age": 23
+    "age": 23,
+    "_discount": 1
   },
   {
     "id": 2,
     "name": "lisi",
-    "age": 25
+    "age": 25,
+    "_discount": 1
   },
   {
-    "id": 21,
+    "id": 3,
     "name": "wanger",
-    "age": 28
+    "age": 28,
+    "_discount": 1
+  },
+  {
+    "id": 4,
+    "name": "mazi",
+    "age": 22,
+    "_discount": 1
   }
 ]
