@@ -21,7 +21,7 @@ export default class List {
     //   return item
     // })
 
-    data.each(itemData => {
+    data.forEach(itemData => {
       let item = createItem(this, itemData)
       item.init()
     })

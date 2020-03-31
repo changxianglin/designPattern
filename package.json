@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "http-server ./src/demo/ -p 8880",
     "dev": "webpack-dev-server --config ./webpack.dev.config --mode development"
   },
   "keywords": [],
