@@ -15,10 +15,15 @@ export default class List {
   }
 
   initItemList(data) {
-    data.map(itemData => {
+    // data.map(itemData => {
+    //   let item = createItem(this, itemData)
+    //   item.init()
+    //   return item
+    // })
+
+    data.each(itemData => {
       let item = createItem(this, itemData)
       item.init()
-      return item
     })
   }
 
